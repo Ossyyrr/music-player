@@ -1,6 +1,9 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/src/helpers/helpers.dart';
+import 'package:music_player/src/models/audioplayer_model.dart';
 import 'package:music_player/src/widgets/custom_appbar.dart';
+import 'package:provider/provider.dart';
 
 class MusicPlayerPage extends StatelessWidget {
   const MusicPlayerPage({Key? key}) : super(key: key);
@@ -73,10 +76,30 @@ class Lyrics extends StatelessWidget {
   }
 }
 
-class TituloPlay extends StatelessWidget {
+class TituloPlay extends StatefulWidget {
   const TituloPlay({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<TituloPlay> createState() => _TituloPlayState();
+}
+
+class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateMixin {
+  bool isPlaying = false;
+  late AnimationController playAnimation;
+
+  @override
+  void initState() {
+    playAnimation = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    playAnimation.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,14 +122,24 @@ class TituloPlay extends StatelessWidget {
           ),
           const Spacer(),
           FloatingActionButton(
-            elevation: 0,
-            highlightElevation: 0,
-            onPressed: () {
-              // TODO boton
-            },
-            backgroundColor: const Color(0xfff8cb51),
-            child: const Icon(Icons.play_arrow),
-          )
+              elevation: 0,
+              highlightElevation: 0,
+              onPressed: () {
+                final audioPlayerModel = Provider.of<AudioPlayerModel>(context, listen: false);
+
+                if (isPlaying) {
+                  playAnimation.reverse();
+                  isPlaying = false;
+                  audioPlayerModel.controller.stop();
+                } else {
+                  playAnimation.forward();
+                  isPlaying = true;
+                  audioPlayerModel.controller.repeat();
+                }
+                setState(() {});
+              },
+              backgroundColor: const Color(0xfff8cb51),
+              child: AnimatedIcon(icon: AnimatedIcons.play_pause, progress: playAnimation))
         ],
       ),
     );
@@ -177,6 +210,7 @@ class ImagenDisco extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final audioPlayerModel = Provider.of<AudioPlayerModel>(context);
     return Container(
       padding: const EdgeInsets.all(20),
       width: 250,
@@ -186,8 +220,12 @@ class ImagenDisco extends StatelessWidget {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            const Image(
-              image: AssetImage('assets/aurora.jpg'),
+            SpinPerfect(
+              duration: const Duration(seconds: 10),
+              infinite: true,
+              manualTrigger: true,
+              controller: (animationController) => audioPlayerModel.controller = animationController,
+              child: const Image(image: AssetImage('assets/aurora.jpg')),
             ),
             Container(
               width: 25,
