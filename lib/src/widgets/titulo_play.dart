@@ -33,7 +33,7 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
   void open() {
     final audioPlayerModel = Provider.of<AudioPlayerModel>(context, listen: false);
 
-    assetAudioPlayer.open(Audio('assets/Breaking-Benjamin-Far-Away.mp3'), autoStart: true, showNotification: true);
+    assetAudioPlayer.open(Audio('assets/la-combi-versace.mp3'), autoStart: true, showNotification: true);
 
     assetAudioPlayer.currentPosition.listen((duration) {
       audioPlayerModel.current = duration;
@@ -54,11 +54,11 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
           Column(
             children: [
               Text(
-                'Far Away',
+                'La combi versace',
                 style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 30),
               ),
               Text(
-                '-Breaking Benjamin-',
+                'Rosalia',
                 style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 15),
               ),
             ],

@@ -26,7 +26,7 @@ class DiscoImage extends StatelessWidget {
               manualTrigger: true,
               animate: false,
               controller: (animationController) => audioPlayerModel.controller = animationController,
-              child: const Image(image: AssetImage('assets/aurora.jpg')),
+              child: const Image(image: AssetImage('assets/motomami.jpeg')),
             ),
             // AnimatedBuilder(
             //   animation: audioPlayerModel.controller,
