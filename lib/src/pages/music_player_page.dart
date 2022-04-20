@@ -114,9 +114,10 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
       audioPlayerModel.current = duration;
     });
 
-//    assetAudioPlayer.current.listen((playing){
-//      assetAudioPlayer.songDuration =
-// });
+    assetAudioPlayer.current.listen((playing){
+      // TODO Revisar
+      audioPlayerModel.songDuration   =playing!.audio.duration;
+ });
   }
 
   @override
@@ -154,7 +155,14 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
                   isPlaying = true;
                   audioPlayerModel.controller.repeat();
                 }
-                setState(() {});
+if(firstTime){
+  open();
+  firstTime=false;
+}
+
+else{
+  assetAudioPlayer.playOrPause();
+}
               },
               backgroundColor: const Color(0xfff8cb51),
               child: AnimatedIcon(icon: AnimatedIcons.play_pause, progress: playAnimation))
