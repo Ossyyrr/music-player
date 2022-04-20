@@ -111,13 +111,14 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
     assetAudioPlayer.open(Audio('assets/Breaking-Benjamin-Far-Away.mp3'), autoStart: true, showNotification: true);
 
     assetAudioPlayer.currentPosition.listen((duration) {
+      print('duration');
+      print(duration);
       audioPlayerModel.current = duration;
     });
 
-    assetAudioPlayer.current.listen((playing){
-      // TODO Revisar
-      audioPlayerModel.songDuration   =playing!.audio.duration;
- });
+    assetAudioPlayer.current.listen((playing) {
+      audioPlayerModel.songDuration = playing!.audio.duration;
+    });
   }
 
   @override
@@ -155,14 +156,12 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
                   isPlaying = true;
                   audioPlayerModel.controller.repeat();
                 }
-if(firstTime){
-  open();
-  firstTime=false;
-}
-
-else{
-  assetAudioPlayer.playOrPause();
-}
+                if (firstTime) {
+                  open();
+                  firstTime = false;
+                } else {
+                  assetAudioPlayer.playOrPause();
+                }
               },
               backgroundColor: const Color(0xfff8cb51),
               child: AnimatedIcon(icon: AnimatedIcons.play_pause, progress: playAnimation))
@@ -201,10 +200,12 @@ class BarraProgres extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final estilo = TextStyle(color: Colors.white.withOpacity(0.4));
+    final audioPlayerModel = Provider.of<AudioPlayerModel>(context, listen: false);
+    final porcentaje = audioPlayerModel.porcentaje;
     return Container(
       child: Column(
         children: [
-          Text('00:00', style: estilo),
+          Text(audioPlayerModel.songTotalDuration, style: estilo),
           const SizedBox(width: 20),
           Stack(
             alignment: Alignment.bottomCenter,
@@ -216,13 +217,13 @@ class BarraProgres extends StatelessWidget {
               ),
               Container(
                 width: 3,
-                height: 100,
+                height: 230 * porcentaje,
                 color: Colors.white.withOpacity(0.8),
               ),
             ],
           ),
           const SizedBox(width: 20),
-          Text('00:00', style: estilo),
+          Text(audioPlayerModel.currentSecond, style: estilo),
         ],
       ),
     );
