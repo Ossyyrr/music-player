@@ -111,13 +111,11 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
     assetAudioPlayer.open(Audio('assets/Breaking-Benjamin-Far-Away.mp3'), autoStart: true, showNotification: true);
 
     assetAudioPlayer.currentPosition.listen((duration) {
-      print('duration');
-      print(duration);
       audioPlayerModel.current = duration;
     });
 
-    assetAudioPlayer.current.listen((playing) {
-      audioPlayerModel.songDuration = playing!.audio.duration;
+    assetAudioPlayer.current.listen((playingAudio) {
+      audioPlayerModel.songDuration = playingAudio?.audio.duration ?? const Duration(seconds: 0);
     });
   }
 
@@ -200,7 +198,7 @@ class BarraProgres extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final estilo = TextStyle(color: Colors.white.withOpacity(0.4));
-    final audioPlayerModel = Provider.of<AudioPlayerModel>(context, listen: false);
+    final audioPlayerModel = Provider.of<AudioPlayerModel>(context);
     final porcentaje = audioPlayerModel.porcentaje;
     return Container(
       child: Column(

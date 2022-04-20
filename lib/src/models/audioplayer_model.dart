@@ -29,13 +29,11 @@ class AudioPlayerModel with ChangeNotifier {
   Duration get songDuration => _songDuration;
   set songDuration(Duration valor) {
     _songDuration = valor;
-    print('notify listeners');
     notifyListeners();
   }
 
   Duration get current => _current;
   set current(Duration valor) {
-    print('set current');
     _current = valor;
     notifyListeners();
   }
