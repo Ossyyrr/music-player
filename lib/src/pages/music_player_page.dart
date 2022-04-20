@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/src/helpers/helpers.dart';
 import 'package:music_player/src/models/audioplayer_model.dart';
@@ -20,6 +21,7 @@ class MusicPlayerPage extends StatelessWidget {
               CustomAppbar(),
               ImageDiscoDuration(),
               TituloPlay(),
+              SizedBox(height: 25),
               Expanded(child: Lyrics()),
             ],
           ),
@@ -87,7 +89,9 @@ class TituloPlay extends StatefulWidget {
 
 class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateMixin {
   bool isPlaying = false;
+  bool firstTime = true;
   late AnimationController playAnimation;
+  final assetAudioPlayer = AssetsAudioPlayer();
 
   @override
   void initState() {
@@ -99,6 +103,20 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
   void dispose() {
     playAnimation.dispose();
     super.dispose();
+  }
+
+  void open() {
+    final audioPlayerModel = Provider.of<AudioPlayerModel>(context, listen: false);
+
+    assetAudioPlayer.open(Audio('assets/Breaking-Benjamin-Far-Away.mp3'), autoStart: true, showNotification: true);
+
+    assetAudioPlayer.currentPosition.listen((duration) {
+      audioPlayerModel.current = duration;
+    });
+
+//    assetAudioPlayer.current.listen((playing){
+//      assetAudioPlayer.songDuration =
+// });
   }
 
   @override
