@@ -1,11 +1,9 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 
 class AudioPlayerModel with ChangeNotifier {
   bool _playing = false;
-  Duration _songDuration = Duration(milliseconds: 0);
-  Duration _current = Duration(milliseconds: 0);
+  Duration _songDuration = const Duration(milliseconds: 0);
+  Duration _current = const Duration(milliseconds: 0);
 
   String get songTotalDuration => printDuration(songDuration);
   String get currentSecond => printDuration(current);
