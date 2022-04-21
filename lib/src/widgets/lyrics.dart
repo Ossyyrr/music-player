@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:music_player/src/helpers/helpers.dart';
+import 'package:music_player/src/helpers/lyrics.dart';
 
 class Lyrics extends StatelessWidget {
   const Lyrics({
@@ -15,9 +15,16 @@ class Lyrics extends StatelessWidget {
         itemExtent: 42,
         diameterRatio: 2,
         children: lyrics
-            .map((linea) => Text(
-                  linea,
-                  style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 20),
+            .map((linea) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      linea,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 20),
+                    ),
+                  ),
                 ))
             .toList());
   }

@@ -33,7 +33,7 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
   void open() {
     final audioPlayerModel = Provider.of<AudioPlayerModel>(context, listen: false);
 
-    assetAudioPlayer.open(Audio('assets/la-combi-versace.mp3'), autoStart: true, showNotification: true);
+    assetAudioPlayer.open(Audio('assets/15-la-combi-versace.mp3'), autoStart: true, showNotification: true);
 
     assetAudioPlayer.currentPosition.listen((duration) {
       audioPlayerModel.current = duration;
