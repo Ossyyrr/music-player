@@ -12,6 +12,7 @@ class ProgressBar extends StatelessWidget {
     final estilo = TextStyle(color: Colors.white.withOpacity(0.4));
     final audioPlayerModel = Provider.of<AudioPlayerModel>(context);
     final porcentaje = audioPlayerModel.porcentaje;
+    const progressBarHeight = 200.0;
     return Column(
       children: [
         Text(audioPlayerModel.songTotalDuration, style: estilo),
@@ -21,12 +22,12 @@ class ProgressBar extends StatelessWidget {
           children: [
             Container(
               width: 3,
-              height: 230,
+              height: progressBarHeight,
               color: Colors.white.withOpacity(0.2),
             ),
             Container(
               width: 3,
-              height: 230 * porcentaje,
+              height: progressBarHeight * porcentaje,
               color: Colors.white.withOpacity(0.8),
             ),
           ],
