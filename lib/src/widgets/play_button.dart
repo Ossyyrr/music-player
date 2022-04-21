@@ -1,5 +1,8 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:music_player/src/helpers/songs.dart';
 import 'package:music_player/src/models/audioplayer_model.dart';
+import 'package:music_player/src/models/song_model.dart';
 import 'package:provider/provider.dart';
 
 class PlayButton extends StatefulWidget {
@@ -13,12 +16,12 @@ class PlayButton extends StatefulWidget {
 
 class _PlayButtonState extends State<PlayButton> with SingleTickerProviderStateMixin {
   bool isPlaying = false;
-  bool firstTime = true;
   late AnimationController playAnimation;
 
   @override
   void initState() {
     playAnimation = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+    open();
     super.initState();
   }
 
@@ -48,10 +51,6 @@ class _PlayButtonState extends State<PlayButton> with SingleTickerProviderStateM
             elevation: 0,
             highlightElevation: 0,
             onPressed: () {
-              if (firstTime) {
-                audioPlayerModel.open();
-                firstTime = false;
-              }
               if (isPlaying) {
                 playAnimation.reverse(); // icono play
                 audioPlayerModel.imageDiscoController.stop(); // imagen disco
@@ -69,5 +68,33 @@ class _PlayButtonState extends State<PlayButton> with SingleTickerProviderStateM
               icon: AnimatedIcons.play_pause,
               progress: playAnimation,
             )));
+  }
+
+  void open() {
+    final audioPlayerModel = Provider.of<AudioPlayerModel>(context, listen: false);
+
+    final List<Song> songs = getSongs();
+
+    List<Audio> audios = [];
+    for (var song in songs) {
+      audios.add(Audio(song.mp3));
+    }
+
+    audioPlayerModel.assetAudioPlayer.open(
+      Playlist(audios: audios),
+      loopMode: LoopMode.playlist,
+    );
+
+    audioPlayerModel.assetAudioPlayer.currentPosition.listen((duration) {
+      audioPlayerModel.current = duration;
+    });
+
+    audioPlayerModel.assetAudioPlayer.current.listen((playingAudio) {
+      audioPlayerModel.songDuration = playingAudio?.audio.duration ?? const Duration(seconds: 0);
+    });
+
+    audioPlayerModel.assetAudioPlayer.playlistAudioFinished.listen((event) {
+      audioPlayerModel.currentSong = audioPlayerModel.currentSong + 1;
+    });
   }
 }
