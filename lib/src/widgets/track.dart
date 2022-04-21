@@ -22,7 +22,13 @@ class Track extends StatelessWidget {
       child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 8),
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 69, 69, 69),
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              colors: [
+                Color(0xff484750),
+                Color(0xff1E1C24),
+              ],
+            ),
             borderRadius: BorderRadius.circular(10),
           ),
           width: 100,
@@ -41,7 +47,7 @@ class Track extends StatelessWidget {
                   child: Text(
                     song.title,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Color(0xffea3741)),
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.white),
                   ),
                 ),
               )
