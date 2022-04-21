@@ -1,4 +1,3 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/src/helpers/songs.dart';
 import 'package:music_player/src/models/audioplayer_model.dart';
@@ -18,7 +17,6 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
   bool isPlaying = false;
   bool firstTime = true;
   late AnimationController playAnimation;
-  final assetAudioPlayer = AssetsAudioPlayer();
   final List<Song> songs = getSongs();
 
   @override
@@ -33,23 +31,18 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
     super.dispose();
   }
 
-  void open() {
-    final audioPlayerModel = Provider.of<AudioPlayerModel>(context, listen: false);
-
-    assetAudioPlayer.open(Audio(songs[audioPlayerModel.currentSong].mp3), autoStart: true, showNotification: true);
-
-    assetAudioPlayer.currentPosition.listen((duration) {
-      audioPlayerModel.current = duration;
-    });
-
-    assetAudioPlayer.current.listen((playingAudio) {
-      audioPlayerModel.songDuration = playingAudio?.audio.duration ?? const Duration(seconds: 0);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final audioPlayerModel = Provider.of<AudioPlayerModel>(context);
+
+    // TODO Colocar este código (Pausa o reactiva el disco al cambiar de canción mediante el provider.)
+    if (audioPlayerModel.assetAudioPlayer.isPlaying.value) {
+      playAnimation.forward(); // icono play
+      audioPlayerModel.imageDiscoController.repeat(); // imagen disco
+    } else {
+      audioPlayerModel.imageDiscoController.stop(); // imagen disco
+      playAnimation.reverse(); // icono play
+    }
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -73,20 +66,20 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
               elevation: 0,
               highlightElevation: 0,
               onPressed: () {
-                if (isPlaying) {
-                  playAnimation.reverse();
-                  isPlaying = false;
-                  audioPlayerModel.controller.stop();
-                } else {
-                  playAnimation.forward();
-                  isPlaying = true;
-                  audioPlayerModel.controller.repeat();
-                }
                 if (firstTime) {
-                  open();
+                  audioPlayerModel.open();
                   firstTime = false;
+                }
+                if (isPlaying) {
+                  playAnimation.reverse(); // icono play
+                  audioPlayerModel.imageDiscoController.stop(); // imagen disco
+                  audioPlayerModel.assetAudioPlayer.pause(); // musica
+                  isPlaying = false;
                 } else {
-                  assetAudioPlayer.playOrPause();
+                  playAnimation.forward(); // icono play
+                  audioPlayerModel.imageDiscoController.repeat(); // imagen disco
+                  audioPlayerModel.assetAudioPlayer.play(); // musica
+                  isPlaying = true;
                 }
               },
               backgroundColor: const Color(0xfff8cb51),

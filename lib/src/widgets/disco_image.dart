@@ -25,19 +25,9 @@ class DiscoImage extends StatelessWidget {
               infinite: true,
               manualTrigger: true,
               animate: false,
-              controller: (animationController) => audioPlayerModel.controller = animationController,
+              controller: (animationController) => audioPlayerModel.imageDiscoController = animationController,
               child: const Image(image: AssetImage('assets/motomami.jpeg')),
             ),
-            // AnimatedBuilder(
-            //   animation: audioPlayerModel.controller,
-            //   builder: (_, child) {
-            //     return Transform.rotate(
-            //       angle: audioPlayerModel.controller.value * 2 * math.pi,
-            //       child: child,
-            //     );
-            //   },
-            //   child: const FlutterLogo(size: 200),
-            // ),
             Container(
               width: 25,
               height: 25,
