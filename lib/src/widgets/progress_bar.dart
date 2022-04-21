@@ -16,23 +16,29 @@ class ProgressBar extends StatelessWidget {
     return Column(
       children: [
         Text(audioPlayerModel.songTotalDuration, style: estilo),
-        const SizedBox(width: 20),
+        const SizedBox(height: 8),
         Stack(
           alignment: Alignment.bottomCenter,
           children: [
             Container(
               width: 3,
               height: progressBarHeight,
-              color: Colors.white.withOpacity(0.2),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                color: Colors.white.withOpacity(0.2),
+              ),
             ),
             Container(
               width: 3,
               height: progressBarHeight * porcentaje,
-              color: Colors.white.withOpacity(0.8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                color: Colors.white.withOpacity(0.8),
+              ),
             ),
           ],
         ),
-        const SizedBox(width: 20),
+        const SizedBox(height: 8),
         Text(audioPlayerModel.currentSecond, style: estilo),
       ],
     );
