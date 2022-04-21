@@ -19,12 +19,29 @@ class TitleTrack extends StatelessWidget {
       children: [
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.6,
-          child: Text(
-            songs[audioPlayerModel.currentSong].title,
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 30),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: Image(
+                  image: AssetImage('assets/bg_title.png'),
+                  height: 70,
+                  width: double.infinity,
+                  fit: BoxFit.fill,
+                ),
+              ),
+              Center(
+                child: Text(
+                  songs[audioPlayerModel.currentSong].title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 26, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
           ),
         ),
+        const SizedBox(height: 8),
         Text(
           'Rosalia',
           style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 15),

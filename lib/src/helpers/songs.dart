@@ -88,7 +88,7 @@ final _songs = [
   },
   {
     'mp3': 'assets/15-la-combi-versace.mp3',
-    'title': 'La combi versace',
+    'title': 'LA COMBI VERSACE',
     'lyrics': laConviVersace,
     'image': '15.jpeg',
   },
