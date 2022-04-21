@@ -19,7 +19,7 @@ class ScrollTrack extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount: songs.length,
           itemBuilder: (context, index) {
-            return Track(song: songs[index]);
+            return Track(song: songs[index], index: index);
           },
         ));
   }

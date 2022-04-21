@@ -36,7 +36,7 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
   void open() {
     final audioPlayerModel = Provider.of<AudioPlayerModel>(context, listen: false);
 
-    assetAudioPlayer.open(Audio(songs[0].mp3), autoStart: true, showNotification: true);
+    assetAudioPlayer.open(Audio(songs[audioPlayerModel.currentSong].mp3), autoStart: true, showNotification: true);
 
     assetAudioPlayer.currentPosition.listen((duration) {
       audioPlayerModel.current = duration;
@@ -49,6 +49,8 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    final audioPlayerModel = Provider.of<AudioPlayerModel>(context);
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 40),
       margin: const EdgeInsets.only(top: 40),
@@ -57,7 +59,7 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
           Column(
             children: [
               Text(
-                songs[0].title,
+                songs[audioPlayerModel.currentSong].title,
                 style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 30),
               ),
               Text(
@@ -71,8 +73,6 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
               elevation: 0,
               highlightElevation: 0,
               onPressed: () {
-                final audioPlayerModel = Provider.of<AudioPlayerModel>(context, listen: false);
-
                 if (isPlaying) {
                   playAnimation.reverse();
                   isPlaying = false;

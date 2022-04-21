@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AudioPlayerModel with ChangeNotifier {
+  int _currentSong = 0;
+
   bool _playing = false;
   Duration _songDuration = const Duration(milliseconds: 0);
   Duration _current = const Duration(milliseconds: 0);
@@ -11,12 +13,20 @@ class AudioPlayerModel with ChangeNotifier {
   double get porcentaje => (songDuration.inSeconds > 0) ? _current.inSeconds / _songDuration.inSeconds : 0;
 
   late AnimationController _controller;
-
+  AnimationController get controller => _controller;
   set controller(AnimationController valor) {
     _controller = valor;
   }
 
-  AnimationController get controller => _controller;
+  int get currentSong => _currentSong;
+  set currentSong(int valor) {
+    _currentSong = valor;
+    _songDuration = const Duration(milliseconds: 0);
+    _current = const Duration(milliseconds: 0);
+    // controller.dispose();
+    print('CURRENT SONG: ' + valor.toString());
+    notifyListeners();
+  }
 
   bool get playing => _playing;
   set playing(bool valor) {
