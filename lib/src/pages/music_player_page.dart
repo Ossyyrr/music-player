@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:music_player/src/helpers/lyrics.dart';
 import 'package:music_player/src/widgets/background.dart';
 import 'package:music_player/src/widgets/image_disco_duration.dart';
 import 'package:music_player/src/widgets/lyrics.dart';
@@ -39,22 +40,15 @@ class ScrollDisco extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 110,
-      width: double.infinity,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: const [
-          Song(),
-          Song(),
-          Song(),
-          Song(),
-          Song(),
-          Song(),
-          Song(),
-          Song(),
-        ],
-      ),
-    );
+        height: 110,
+        width: double.infinity,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: getLyrics().length,
+          itemBuilder: (context, index) {
+            return const Song();
+          },
+        ));
   }
 }
 

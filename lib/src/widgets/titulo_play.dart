@@ -1,5 +1,6 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:music_player/src/helpers/songs.dart';
 import 'package:music_player/src/models/audioplayer_model.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +34,7 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
   void open() {
     final audioPlayerModel = Provider.of<AudioPlayerModel>(context, listen: false);
 
-    assetAudioPlayer.open(Audio('assets/15-la-combi-versace.mp3'), autoStart: true, showNotification: true);
+    assetAudioPlayer.open(Audio(getSong()[0]), autoStart: true, showNotification: true);
 
     assetAudioPlayer.currentPosition.listen((duration) {
       audioPlayerModel.current = duration;
@@ -54,7 +55,7 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
           Column(
             children: [
               Text(
-                'La combi versace',
+                getTitle()[0],
                 style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 30),
               ),
               Text(

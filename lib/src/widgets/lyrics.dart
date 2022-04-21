@@ -14,7 +14,7 @@ class Lyrics extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         itemExtent: 42,
         diameterRatio: 2,
-        children: lyrics
+        children: lyrics[0]
             .map((linea) => Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
                   child: FittedBox(
