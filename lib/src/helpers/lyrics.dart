@@ -147,7 +147,8 @@ final laFama = [
 final bulerias = [
   'Yo no tuve que hacer naíta que yo no quisiera',
   'Y aunque ahora nadie lo ve (dale)',
-  'Yo no tuve que hacer nada que me arrepienta ni de que yo lamente ahora',
+  'Yo no tuve que hacer nada que me arrepienta',
+  ' ni de que yo lamente ahora',
   'Para mantenerme en pie, yo me maté 24/7',
   'Eso elo que tuve que hacer (ole)',
   'Soy igual de cantaora (dale, dale)',

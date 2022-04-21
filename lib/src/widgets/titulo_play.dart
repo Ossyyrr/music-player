@@ -39,21 +39,28 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
     if (audioPlayerModel.assetAudioPlayer.isPlaying.value) {
       playAnimation.forward(); // icono play
       audioPlayerModel.imageDiscoController.repeat(); // imagen disco
+      isPlaying = true;
     } else {
       audioPlayerModel.imageDiscoController.stop(); // imagen disco
       playAnimation.reverse(); // icono play
+      isPlaying = false;
     }
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 40),
       margin: const EdgeInsets.only(top: 40),
+      width: double.infinity,
       child: Row(
         children: [
           Column(
             children: [
-              Text(
-                songs[audioPlayerModel.currentSong].title,
-                style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 30),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.6,
+                child: Text(
+                  songs[audioPlayerModel.currentSong].title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 30),
+                ),
               ),
               Text(
                 'Rosalia',
@@ -83,7 +90,10 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
                 }
               },
               backgroundColor: const Color(0xfff8cb51),
-              child: AnimatedIcon(icon: AnimatedIcons.play_pause, progress: playAnimation))
+              child: AnimatedIcon(
+                icon: AnimatedIcons.play_pause,
+                progress: playAnimation,
+              ))
         ],
       ),
     );
