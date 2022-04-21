@@ -12,20 +12,21 @@ class MusicPlayerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-      child: Stack(
+      child: Column(
         children: [
-          const Background(),
-          Column(
-            children: const [
-              //   CustomAppbar(),
-              //   SizedBox(height: 25),
-              ScrollTrack(),
-              ImageDiscoDuration(),
-              TituloPlay(),
-              SizedBox(height: 25),
-              Expanded(child: Lyrics()),
+          Stack(
+            children: [
+              const Background(),
+              Column(
+                children: const [
+                  ScrollTrack(),
+                  ImageDiscoDuration(),
+                  TituloPlay(),
+                ],
+              ),
             ],
           ),
+          const Expanded(child: Lyrics()),
         ],
       ),
     ));

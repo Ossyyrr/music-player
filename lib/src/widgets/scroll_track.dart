@@ -13,7 +13,7 @@ class ScrollTrack extends StatelessWidget {
     final List<Song> songs = getSongs();
 
     return SizedBox(
-        height: 110,
+        height: 120,
         width: double.infinity,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
