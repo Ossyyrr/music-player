@@ -16,12 +16,12 @@ class Lyrics extends StatelessWidget {
 
     return ListWheelScrollView(
         physics: const BouncingScrollPhysics(),
-        itemExtent: 42,
+        itemExtent: 40,
         diameterRatio: 2,
         children: songs[audioPlayerModel.currentSong]
             .lyrics
             .map((linea) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(

@@ -17,8 +17,9 @@ class ScrollTrack extends StatelessWidget {
         width: double.infinity,
         child: ListView.builder(
           physics: const BouncingScrollPhysics(),
+            
           scrollDirection: Axis.horizontal,
-          itemCount: songs.length,
+          itemCount: songs.length, 
           itemBuilder: (context, index) {
             return Track(song: songs[index], index: index);
           },

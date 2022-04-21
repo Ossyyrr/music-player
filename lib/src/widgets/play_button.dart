@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:music_player/src/helpers/songs.dart';
 import 'package:music_player/src/models/audioplayer_model.dart';
 import 'package:music_player/src/models/song_model.dart';
+import 'package:music_player/src/widgets/title_track.dart';
 import 'package:provider/provider.dart';
 
-class TituloPlay extends StatefulWidget {
-  const TituloPlay({
+class PlayButton extends StatefulWidget {
+  const PlayButton({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<TituloPlay> createState() => _TituloPlayState();
+  State<PlayButton> createState() => _PlayButtonState();
 }
 
-class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateMixin {
+class _PlayButtonState extends State<PlayButton> with SingleTickerProviderStateMixin {
   bool isPlaying = false;
   bool firstTime = true;
   late AnimationController playAnimation;
@@ -52,22 +53,7 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
       width: double.infinity,
       child: Row(
         children: [
-          Column(
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
-                child: Text(
-                  songs[audioPlayerModel.currentSong].title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 30),
-                ),
-              ),
-              Text(
-                'Rosalia',
-                style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 15),
-              ),
-            ],
-          ),
+          TitleTrack(songs: songs),
           const Spacer(),
           FloatingActionButton(
               elevation: 0,
@@ -89,7 +75,7 @@ class _TituloPlayState extends State<TituloPlay> with SingleTickerProviderStateM
                   isPlaying = true;
                 }
               },
-              backgroundColor: const Color(0xfff8cb51),
+              backgroundColor: Colors.white,
               child: AnimatedIcon(
                 icon: AnimatedIcons.play_pause,
                 progress: playAnimation,
