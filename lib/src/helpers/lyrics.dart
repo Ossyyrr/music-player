@@ -139,7 +139,3 @@ final saoko = [
   'Cógela y córtala',
   'Cógela y córtala',
 ];
-
-List<List<String>> getLyrics() {
-  return [laConviVersace, saoko];
-}
