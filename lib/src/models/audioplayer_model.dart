@@ -26,8 +26,8 @@ class AudioPlayerModel with ChangeNotifier {
   int get currentSong => _currentSong;
   set currentSong(int valor) {
     _currentSong = valor;
-    _songDuration = const Duration(milliseconds: 0);
-    _current = const Duration(milliseconds: 0);
+    // _songDuration = const Duration(milliseconds: 0);
+    // _current = const Duration(milliseconds: 0);
     open();
     notifyListeners();
   }
