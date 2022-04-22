@@ -28,8 +28,7 @@ class AudioPlayerModel with ChangeNotifier {
 
   int get currentSong => _currentSong;
   set currentSong(int valor) {
-    _currentSong = valor;
-
+    _currentSong = valor % songs.length;
     notifyListeners();
   }
 

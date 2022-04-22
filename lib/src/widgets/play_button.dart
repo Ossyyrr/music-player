@@ -45,27 +45,45 @@ class _PlayButtonState extends State<PlayButton> with SingleTickerProviderStateM
     }
 
     return SizedBox(
-        child: FloatingActionButton(
-            elevation: 0,
-            highlightElevation: 0,
-            onPressed: () {
-              if (isPlaying) {
-                playAnimation.reverse(); // icono play
-                audioPlayerModel.imageDiscoController.stop(); // imagen disco
-                audioPlayerModel.assetAudioPlayer.pause(); // musica
-                isPlaying = false;
-              } else {
-                playAnimation.forward(); // icono play
-                audioPlayerModel.imageDiscoController.repeat(); // imagen disco
-                audioPlayerModel.assetAudioPlayer.play(); // musica
-                isPlaying = true;
-              }
-            },
-            backgroundColor: Colors.white,
-            child: AnimatedIcon(
-              icon: AnimatedIcons.play_pause,
-              progress: playAnimation,
-            )));
+        child: GestureDetector(
+      onTap: () {
+        if (isPlaying) {
+          playAnimation.reverse(); // icono play
+          audioPlayerModel.imageDiscoController.stop(); // imagen disco
+          audioPlayerModel.assetAudioPlayer.pause(); // musica
+          isPlaying = false;
+        } else {
+          playAnimation.forward(); // icono play
+          audioPlayerModel.imageDiscoController.repeat(); // imagen disco
+          audioPlayerModel.assetAudioPlayer.play(); // musica
+          isPlaying = true;
+        }
+      },
+      onHorizontalDragEnd: (DragEndDetails drag) {
+        if (drag.primaryVelocity == null) return;
+        if (drag.primaryVelocity! < 0) {
+          // drag from right to left
+          audioPlayerModel.assetAudioPlayer
+              .previous()
+              .then((value) => audioPlayerModel.currentSong = audioPlayerModel.assetAudioPlayer.current.value!.index);
+        } else {
+          // drag from left to right
+          audioPlayerModel.assetAudioPlayer
+              .next()
+              .then((value) => audioPlayerModel.currentSong = audioPlayerModel.assetAudioPlayer.current.value!.index);
+        }
+      },
+      child: Container(
+          width: 60,
+          height: 60,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(100)),
+          child: AnimatedIcon(
+            icon: AnimatedIcons.play_pause,
+            color: const Color(0xff201e28),
+            progress: playAnimation,
+          )),
+    ));
   }
 
   void open() {
