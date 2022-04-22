@@ -4,8 +4,10 @@ import 'package:music_player/src/helpers/songs.dart';
 import 'package:music_player/src/models/song_model.dart';
 
 class AudioPlayerModel with ChangeNotifier {
-  final List<Song> songs = getSongs();
-
+  AudioPlayerModel() {
+    songs = getSongs();
+  }
+  late final List<Song> songs;
   int _currentSong = 0;
   final assetAudioPlayer = AssetsAudioPlayer();
 

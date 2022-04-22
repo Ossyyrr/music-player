@@ -26,7 +26,7 @@ class MusicPlayerPage extends StatelessWidget {
               Column(
                 children: [
                   const ScrollTrack(),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 30),
                   SizedBox(
                     height: 350,
                     child: Row(
