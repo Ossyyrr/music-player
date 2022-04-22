@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:music_player/src/helpers/songs.dart';
-import 'package:music_player/src/models/song_model.dart';
+import 'package:music_player/src/models/audioplayer_model.dart';
 import 'package:music_player/src/widgets/background.dart';
 import 'package:music_player/src/widgets/disco_image.dart';
 import 'package:music_player/src/widgets/lyrics.dart';
@@ -8,13 +7,14 @@ import 'package:music_player/src/widgets/play_button.dart';
 import 'package:music_player/src/widgets/progress_bar.dart';
 import 'package:music_player/src/widgets/scroll_track.dart';
 import 'package:music_player/src/widgets/title_track.dart';
+import 'package:provider/provider.dart';
 
 class MusicPlayerPage extends StatelessWidget {
   const MusicPlayerPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final List<Song> songs = getSongs();
+    final audioPlayerModel = Provider.of<AudioPlayerModel>(context);
 
     return Scaffold(
         body: SafeArea(
@@ -36,7 +36,7 @@ class MusicPlayerPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const DiscoImage(),
-                            TitleTrack(songs: songs),
+                            TitleTrack(songs: audioPlayerModel.songs),
                           ],
                         ),
                         const SizedBox(),

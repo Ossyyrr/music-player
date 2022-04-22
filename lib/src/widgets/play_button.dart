@@ -1,8 +1,6 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:music_player/src/helpers/songs.dart';
 import 'package:music_player/src/models/audioplayer_model.dart';
-import 'package:music_player/src/models/song_model.dart';
 import 'package:provider/provider.dart';
 
 class PlayButton extends StatefulWidget {
@@ -73,10 +71,8 @@ class _PlayButtonState extends State<PlayButton> with SingleTickerProviderStateM
   void open() {
     final audioPlayerModel = Provider.of<AudioPlayerModel>(context, listen: false);
 
-    final List<Song> songs = getSongs();
-
     List<Audio> audios = [];
-    for (var song in songs) {
+    for (var song in audioPlayerModel.songs) {
       audios.add(Audio(song.mp3));
     }
 
