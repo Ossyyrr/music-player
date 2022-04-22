@@ -24,7 +24,6 @@ class AudioPlayerModel with ChangeNotifier {
   set currentSong(int valor) {
     _currentSong = valor;
 
-    assetAudioPlayer.playlistPlayAtIndex(_currentSong);
     notifyListeners();
   }
 

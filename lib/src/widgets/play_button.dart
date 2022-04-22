@@ -94,6 +94,7 @@ class _PlayButtonState extends State<PlayButton> with SingleTickerProviderStateM
     });
 
     audioPlayerModel.assetAudioPlayer.playlistAudioFinished.listen((event) {
+      print('AUDIO FINISHED');
       audioPlayerModel.currentSong = audioPlayerModel.currentSong + 1;
     });
   }
