@@ -9,7 +9,7 @@ class Background extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.63,
+      height: 565,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(60)),
         gradient: LinearGradient(
